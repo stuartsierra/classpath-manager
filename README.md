@@ -17,7 +17,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
-Getting Stated Part One: Compile classpath-manager
+Step One: Compile classpath-manager
 ==================================================
 
 You will need [Maven](http://maven.apache.org/) version 2.0 or later.
