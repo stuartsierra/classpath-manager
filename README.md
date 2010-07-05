@@ -24,7 +24,8 @@ You will need [Maven](http://maven.apache.org/) version 2.0 or later.
 
 Run `mvn package` in this directory.
 
-The JAR file will be created at `target/classpath-manager-1.0.0-SNAPSHOT.jar`.
+The JAR file will be created at `target/classpath-manager-$VERSION.jar` 
+where $VERSION is the current version of classpath-manager.
 
 
 Step Two: Install Nailgun
@@ -46,9 +47,10 @@ Run a Nailgun server like this:
 
 Add the classpath-manager JAR to the Nailgun classpath:
 
-    ng ng-cp /your/path/to/classpath-manager-1.0.0-SNAPSHOT.jar
+    ng ng-cp /your/path/to/classpath-manager-$VERSION.jar
 
-The path to the JAR *must* be an absolute path.
+where $VERSION is the current version of classpath-manager. The path
+to the JAR *must* be an absolute path.
 
 Add a short alias `cm` for the ClasspathManager main class:
 
