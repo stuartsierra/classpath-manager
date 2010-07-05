@@ -18,6 +18,8 @@ import com.martiansoftware.nailgun.NGContext;
 public class ClasspathManager {
     private static final String CLASSPATH_FILE_NAME = "classpath";
 
+    private static final Class[] MAIN_METHOD_SIGNATURE = new Class[] { String[].class };
+
     private static List<URL> readClasspath(File classpathFile)
 	throws IOException {
 
@@ -53,7 +55,8 @@ public class ClasspathManager {
 	    System.exit(1);
 	}
 
-	String mainClassName = args[0];
+	final String mainClassName = args[0];
+	final String[] mainArgs = Arrays.copyOfRange(args, 1, args.length);
 	
 	File classpathFile = new File(working_dir, CLASSPATH_FILE_NAME);
 
@@ -65,19 +68,31 @@ public class ClasspathManager {
 	    System.exit(-1);
 	}
 
-	URL[] urlArray = urls.toArray(new URL[0]);
-	ClassLoader classloader = URLClassLoader.newInstance(urlArray);
-	Thread.currentThread().setContextClassLoader(classloader);
+	final URL[] urlArray = urls.toArray(new URL[0]);
+
+	Thread thread = new Thread() {
+		public void run() {
+		    ClassLoader classloader = URLClassLoader.newInstance(urlArray);
+		    Thread.currentThread().setContextClassLoader(classloader);
+		    try {
+			Class mainClass = classloader.loadClass(mainClassName);
+			Method mainMethod = mainClass.getMethod("main",
+								MAIN_METHOD_SIGNATURE);
+			mainMethod.invoke(null, (Object)mainArgs);
+		    } catch (Exception e) {
+			e.printStackTrace();
+			System.exit(-1);
+		    }	    
+		}
+	    };
+
 	try {
-	    Class mainClass = classloader.loadClass(mainClassName);
-	    Class[] mainSignature = new Class[] { String[].class };
-	    Method mainMethod = mainClass.getMethod("main", mainSignature);
-	    String[] mainArgs = Arrays.copyOfRange(args, 1, args.length);
-	    mainMethod.invoke(null, (Object)mainArgs);
-	} catch (Exception e) {
+	    thread.start();
+	    thread.join();
+	} catch (InterruptedException e) {
 	    e.printStackTrace();
 	    System.exit(-1);
-	}	    
+	}
     }
     
     public static void main(String[] args) {
