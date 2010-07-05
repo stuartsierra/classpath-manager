@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.stuartsierra</groupId>
+  <artifactId>classpath-manager</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>classpath-manager</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>com.stuartsierra</groupId>
+      <artifactId>nailgun</artifactId>
+      <version>0.7.1</version>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>stuartsierra-releases</id>
+      <name>Stuart Sierra's personal Maven 2 release repository</name>
+      <url>http://stuartsierra.com/maven2</url>
+      <!-- My copy of Nailgun is deployed here -->
+    </repository>
+  </repositories>
+  <build>
+    <plugins>
+      <plugin>
+	<artifactId>maven-compiler-plugin</artifactId>
+	<configuration>
+	  <source>1.5</source>
+	  <target>1.5</target>
+	</configuration>
+      </plugin>
+    </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ftp</artifactId>
+        <version>1.0-beta-6</version>
+      </extension>
+    </extensions>
+  </build>
+  <distributionManagement>
+    <repository>
+      <id>stuartsierra-releases</id>
+      <name>Stuart Sierra's personal Maven 2 release repository</name>
+      <url>ftp://stuartsierra.com/public_html/stuartsierra/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>stuartsierra-snapshots</id>
+      <name>Stuart Sierra's personal Maven 2 SNAPSHOT repository</name>
+      <url>ftp://stuartsierra.com/public_html/stuartsierra/m2snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+</project>
