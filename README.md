@@ -20,14 +20,14 @@ limitations under the License.
 Getting Stated Part One: Compile classpath-manager
 ==================================================
 
-You will need [Maven](http://maven.apache.org/).
+You will need [Maven](http://maven.apache.org/) version 2.0 or later.
 
 Run `mvn package` in this directory.
 
 The JAR file will be created at `target/classpath-manager-1.0.0-SNAPSHOT.jar`.
 
 
-Getting Started Part Two: Install Nailgun
+Step Two: Install Nailgun
 =========================================
 
 Download [Nailgun](http://martiansoftware.com/nailgun/).
@@ -48,14 +48,14 @@ Add the classpath-manager JAR to the Nailgun classpath:
 
     ng ng-cp /your/path/to/classpath-manager-1.0.0-SNAPSHOT.jar
 
-The path to the JAR must be an absolute path.
+The path to the JAR *must* be an absolute path.
 
-Add an alias for the ClasspathManager main class:
+Add a short alias `cm` for the ClasspathManager main class:
 
     ng ng-alias cm com.stuartsierra.ClasspathManager
 
 
-Getting Started Part Four: Create a classpath File
+Step Four: Create a classpath File
 ==================================================
 
 Create a text file named `classpath` in a project directory.
@@ -74,11 +74,15 @@ they begin with a "/".
 Shell wildcards are not supported.
 
 
-Getting Started Part Five: Run classpath-manager
+Step Five: Run classpath-manager
 ================================================
 
-Run `ng cm your-main-class` to run your-main-class with the configured
-classpath.
+Run `ng cm your-main-class` in your project directory to run
+your-main-class with the configured classpath.
+
+Example:
+
+     ng cm clojure.main
 
 
 Caveats
@@ -88,4 +92,4 @@ Caveats
 
 * Your main class runs as the same user as the Nailgun server process.
 
-* The Java System properties `user.dir` and `java.class.path` are not accurate.
+* The Java System properties `user.dir` and `java.class.path` are not useful.
