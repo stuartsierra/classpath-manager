@@ -18,7 +18,7 @@ limitations under the License.
 
 
 Step One: Compile classpath-manager
-==================================================
+===================================
 
 You will need [Maven](http://maven.apache.org/) version 2.0 or later.
 
@@ -29,7 +29,7 @@ where $VERSION is the current version of classpath-manager.
 
 
 Step Two: Install Nailgun
-=========================================
+=========================
 
 Download [Nailgun](http://martiansoftware.com/nailgun/).
 
@@ -38,8 +38,8 @@ Compile the Nailgun command-line client.
 Copy the `ng` executable to your PATH.
 
 
-Getting Stated Part Three: Run Nailgun
-======================================
+Step Three: Run Nailgun
+=======================
 
 Run a Nailgun server like this:
 
@@ -58,7 +58,7 @@ Add a short alias `cm` for the ClasspathManager main class:
 
 
 Step Four: Create a classpath File
-==================================================
+==================================
 
 Create a text file named `classpath` in a project directory.
 
