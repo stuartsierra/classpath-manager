@@ -15,6 +15,8 @@ import java.util.List;
 
 import com.martiansoftware.nailgun.NGContext;
 
+import com.stuartsierra.cm.CompositeClassLoader;
+
 public class ClasspathManager {
     private static final String CLASSPATH_FILE_NAME = "classpath";
 
@@ -29,6 +31,9 @@ public class ClasspathManager {
 	    while(true) {
 		String line = reader.readLine();
 		if (line == null) break;
+		line = line.trim();
+		if (line.isEmpty()) break;
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("file:");
 		if (!line.startsWith("/")) {
@@ -72,10 +77,15 @@ public class ClasspathManager {
 
 	Thread thread = new Thread() {
 		public void run() {
-		    ClassLoader classloader = URLClassLoader.newInstance(urlArray);
-		    Thread.currentThread().setContextClassLoader(classloader);
+		    List<ClassLoader> classloaders = new ArrayList<ClassLoader>();
+		    URLClassLoader urlLoader = new URLClassLoader(urlArray);
+		    classloaders.add(urlLoader);
+		    ClassLoader compositeLoader =
+			new CompositeClassLoader(classloaders,
+						 ClasspathManager.class.getClassLoader());
+		    Thread.currentThread().setContextClassLoader(compositeLoader);
 		    try {
-			Class mainClass = classloader.loadClass(mainClassName);
+			Class mainClass = compositeLoader.loadClass(mainClassName);
 			Method mainMethod = mainClass.getMethod("main",
 								MAIN_METHOD_SIGNATURE);
 			mainMethod.invoke(null, (Object)mainArgs);
