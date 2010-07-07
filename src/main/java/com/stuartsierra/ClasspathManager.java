@@ -78,8 +78,11 @@ public class ClasspathManager {
 	Thread thread = new Thread() {
 		public void run() {
 		    List<ClassLoader> classloaders = new ArrayList<ClassLoader>();
-		    URLClassLoader urlLoader = new URLClassLoader(urlArray);
-		    classloaders.add(urlLoader);
+		    for (int i = 0; i < urlArray.length; i++) {
+			URL[] myURLs = new URL[1];
+			myURLs[0] = urlArray[i];
+			classloaders.add(new URLClassLoader(myURLs));
+		    }
 		    ClassLoader compositeLoader =
 			new CompositeClassLoader(classloaders,
 						 ClasspathManager.class.getClassLoader());
