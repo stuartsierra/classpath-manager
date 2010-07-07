@@ -102,8 +102,11 @@ Caveats
 ChangeLog
 =========
 
-(in progress)   v1.1.0
+2010-07-06   v1.1.0
+
 * Cache classloaders by URL in between invocations
 
+
 2010-07-05   v1.0.0
+
 * Initial release
