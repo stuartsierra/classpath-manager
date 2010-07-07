@@ -90,6 +90,8 @@ Example:
 Caveats
 =======
 
+* Static class fields are shared among *all* applications.  For Clojure, this means you have *one* global Clojure runtime.
+
 * Your main class runs in the same working directory as the Nailgun server process.
 
 * Your main class runs as the same user as the Nailgun server process.

@@ -16,11 +16,18 @@ import java.util.List;
 import com.martiansoftware.nailgun.NGContext;
 
 import com.stuartsierra.cm.CompositeClassLoader;
+import com.stuartsierra.cm.ClassLoaderCache;
 
 public class ClasspathManager {
     private static final String CLASSPATH_FILE_NAME = "classpath";
 
     private static final Class[] MAIN_METHOD_SIGNATURE = new Class[] { String[].class };
+
+    private static final ClassLoaderCache cache;
+
+    static {
+	cache = new ClassLoaderCache();
+    }
 
     private static List<URL> readClasspath(File classpathFile)
 	throws IOException {
@@ -79,9 +86,7 @@ public class ClasspathManager {
 		public void run() {
 		    List<ClassLoader> classloaders = new ArrayList<ClassLoader>();
 		    for (int i = 0; i < urlArray.length; i++) {
-			URL[] myURLs = new URL[1];
-			myURLs[0] = urlArray[i];
-			classloaders.add(new URLClassLoader(myURLs));
+			classloaders.add(cache.getClassLoader(urlArray[i]));
 		    }
 		    ClassLoader compositeLoader =
 			new CompositeClassLoader(classloaders,
