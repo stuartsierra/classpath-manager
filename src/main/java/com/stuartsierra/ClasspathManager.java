@@ -42,12 +42,19 @@ public class ClasspathManager {
 		if (line.isEmpty()) break;
 
 		StringBuilder sb = new StringBuilder();
-		sb.append("file:");
 		if (!line.startsWith("/")) {
 		    sb.append(classpathFile.getParentFile().getAbsolutePath());
 		    sb.append("/");
 		}
 		sb.append(line);
+
+		File file = new File(sb.toString());
+		sb = new StringBuilder("file:");
+		sb.append(file.getAbsolutePath());
+		if (file.isDirectory()) {
+		    sb.append("/");
+		}
+
 		try {
 		    URL url = new URL(sb.toString());
 		    urls.add(url);
