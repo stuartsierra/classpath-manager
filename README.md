@@ -97,3 +97,13 @@ Caveats
 * Your main class runs as the same user as the Nailgun server process.
 
 * The Java System properties `user.dir` and `java.class.path` are not useful.
+
+
+ChangeLog
+=========
+
+(in progress)   v1.1.0
+* Cache classloaders by URL in between invocations
+
+2010-07-05   v1.0.0
+* Initial release
